@@ -90,6 +90,10 @@ func (dbp *DagBuilderParams) New(spl chunker.Splitter) (*DagBuilderHelper, error
 	return db, nil
 }
 
+func (db *DagBuilderHelper) FullPath() string {
+    return db.fullPath
+}
+
 // prepareNext consumes the next item from the splitter and puts it
 // in the nextData field. it is idempotent-- if nextData is full
 // it will do nothing.
