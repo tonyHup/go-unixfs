@@ -183,6 +183,8 @@ func (db *DagBuilderHelper) NewLeafNode(data []byte, fsNodeType pb.Data_DataType
 // for the `trickle.Layout`.
 func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
 
+    fullPath := db.FullPath()
+
 	// while we have room AND we're not done
 	for node.NumChildren() < db.maxlinks && !db.Done() {
 		child, childFileSize, err := db.NewLeafDataNode(ft.TRaw)
@@ -193,7 +195,7 @@ func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
 		if err := node.AddChild(child, childFileSize, db); err != nil {
 			return err
 		}
-        privacy.Prv.AddCidInfo(db.fullPath, child.String())
+        privacy.Prv.AddCidInfo(fullPath, child.String())
 	}
 	node.Commit()
 	// TODO: Do we need to commit here? The caller who created the
