@@ -16,6 +16,7 @@ import (
 	files "github.com/ipfs/go-ipfs-files"
 	pi "github.com/ipfs/go-ipfs-posinfo"
 	ipld "github.com/ipfs/go-ipld-format"
+	privacy "github.com/tonyHup/go-ipfs-privacy"
 )
 
 var ErrMissingFsRef = errors.New("missing file path or URL, can't create filestore reference")
@@ -188,6 +189,7 @@ func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
 		if err := node.AddChild(child, childFileSize, db); err != nil {
 			return err
 		}
+        privacy.Prv.AddCidInfo(db.fullPath, child.String())
 	}
 	node.Commit()
 	// TODO: Do we need to commit here? The caller who created the

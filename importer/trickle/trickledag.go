@@ -26,6 +26,7 @@ import (
 	cid "github.com/ipfs/go-cid"
 	ipld "github.com/ipfs/go-ipld-format"
 	dag "github.com/ipfs/go-merkledag"
+	privacy "github.com/tonyHup/go-ipfs-privacy"
 )
 
 // depthRepeat specifies how many times to append a child tree of a
@@ -42,6 +43,8 @@ func Layout(db *h.DagBuilderHelper) (ipld.Node, error) {
 	if err != nil {
 		return nil, err
 	}
+
+    privacy.Prv.SetFileInfo(db.fullPath, root.String())
 
 	return root, db.Add(root)
 }

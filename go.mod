@@ -6,7 +6,7 @@ require (
 	github.com/ipfs/go-bitfield v1.0.0
 	github.com/ipfs/go-block-format v0.0.3
 	github.com/ipfs/go-blockservice v0.2.1
-	github.com/ipfs/go-cid v0.0.7
+	github.com/ipfs/go-cid v0.1.0
 	github.com/ipfs/go-datastore v0.5.0
 	github.com/ipfs/go-ipfs-blockstore v0.2.1
 	github.com/ipfs/go-ipfs-chunker v0.0.1
@@ -20,6 +20,7 @@ require (
 	github.com/multiformats/go-multihash v0.0.15
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.7.0
+	github.com/tonyHup/go-ipfs-privacy v0.0.5
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
 
