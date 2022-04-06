@@ -131,15 +131,12 @@ import (
 //        +=========+   +=========+   + - - - - +
 //
 func Layout(db *h.DagBuilderHelper) (ipld.Node, error) {
-    fullPath := db.FullPath()
 	if db.Done() {
 		// No data, return just an empty node.
 		root, err := db.NewLeafNode(nil, ft.TFile)
 		if err != nil {
 			return nil, err
 		}
-
-        privacy.Prv.AddCidInfo(fullPath, root.String())
 
 		// This works without Filestore support (`ProcessFileStore`).
 		// TODO: Why? Is there a test case missing?
@@ -155,7 +152,6 @@ func Layout(db *h.DagBuilderHelper) (ipld.Node, error) {
 	if err != nil {
 		return nil, err
 	}
-    privacy.Prv.AddCidInfo(fullPath, root.String())
 
 	// Each time a DAG of a certain `depth` is filled (because it
 	// has reached its maximum capacity of `db.Maxlinks()` per node)
@@ -175,7 +171,7 @@ func Layout(db *h.DagBuilderHelper) (ipld.Node, error) {
 		}
 	}
 
-    privacy.Prv.SetFileInfo(fullPath, root.String())
+    privacy.Prv.SetFileInfo(db.FullPath(), root.String())
 
 	return root, db.Add(root)
 }
@@ -236,8 +232,6 @@ func fillNodeRec(db *h.DagBuilderHelper, node *h.FSNodeOverDag, depth int) (fill
 	// in `node` when adding the child.
 	var childFileSize uint64
 
-    fullPath := db.FullPath()
-
 	// While we have room and there is data available to be added.
 	for node.NumChildren() < db.Maxlinks() && !db.Done() {
 
@@ -247,7 +241,6 @@ func fillNodeRec(db *h.DagBuilderHelper, node *h.FSNodeOverDag, depth int) (fill
 			if err != nil {
 				return nil, 0, err
 			}
-            privacy.Prv.AddCidInfo(fullPath, childNode.String())
 		} else {
 			// Recursion case: create an internal node to in turn keep
 			// descending in the DAG and adding child nodes to it.

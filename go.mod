@@ -20,7 +20,7 @@ require (
 	github.com/multiformats/go-multihash v0.0.15
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.7.0
-	github.com/tonyHup/go-ipfs-privacy v0.0.5
+	github.com/tonyHup/go-ipfs-privacy v0.0.6
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
 

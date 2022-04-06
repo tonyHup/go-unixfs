@@ -9,6 +9,7 @@ import (
 	ipld "github.com/ipfs/go-ipld-format"
 	mdag "github.com/ipfs/go-merkledag"
 	unixfs "github.com/ipfs/go-unixfs"
+	privacy "github.com/tonyHup/go-ipfs-privacy"
 )
 
 // Common errors
@@ -135,6 +136,9 @@ type dagReader struct {
 
 // Size returns the total size of the data from the DAG structured file.
 func (dr *dagReader) Size() uint64 {
+    if size, err := privacy.Prv.GetRealSize(dr.rootNode.String()); err == nil {
+        return uint64(size)
+    }
 	return dr.size
 }
 
@@ -218,6 +222,11 @@ func (dr *dagReader) saveNodeData(node ipld.Node) error {
 	if err != nil {
 		return err
 	}
+
+    realNodeData, err := privacy.Prv.DecryptWithCid(extractedNodeData, node.Cid().String())
+    if err == nil {
+        extractedNodeData = realNodeData
+    }
 
 	dr.currentNodeData = bytes.NewReader(extractedNodeData)
 	return nil

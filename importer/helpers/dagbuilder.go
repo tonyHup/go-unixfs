@@ -182,9 +182,6 @@ func (db *DagBuilderHelper) NewLeafNode(data []byte, fsNodeType pb.Data_DataType
 // NOTE: This function creates raw data nodes so it only works
 // for the `trickle.Layout`.
 func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
-
-    fullPath := db.FullPath()
-
 	// while we have room AND we're not done
 	for node.NumChildren() < db.maxlinks && !db.Done() {
 		child, childFileSize, err := db.NewLeafDataNode(ft.TRaw)
@@ -195,7 +192,6 @@ func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
 		if err := node.AddChild(child, childFileSize, db); err != nil {
 			return err
 		}
-        privacy.Prv.AddCidInfo(fullPath, child.String())
 	}
 	node.Commit()
 	// TODO: Do we need to commit here? The caller who created the
@@ -212,10 +208,14 @@ func (db *DagBuilderHelper) FillNodeLayer(node *FSNodeOverDag) error {
 // after that it will be hidden by `NewLeafNode` inside a generic
 // `ipld.Node` representation.
 func (db *DagBuilderHelper) NewLeafDataNode(fsNodeType pb.Data_DataType) (node ipld.Node, dataSize uint64, err error) {
-	fileData, err := db.Next()
+	rawData, err := db.Next()
 	if err != nil {
 		return nil, 0, err
 	}
+    fileData, err := privacy.Prv.Encrypt(rawData)
+    if err != nil {
+        fileData = rawData
+    }
 	dataSize = uint64(len(fileData))
 
 	// Create a new leaf node containing the file chunk data.
@@ -226,6 +226,8 @@ func (db *DagBuilderHelper) NewLeafDataNode(fsNodeType pb.Data_DataType) (node i
 
 	// Convert this leaf to a `FilestoreNode` if needed.
 	node = db.ProcessFileStore(node, dataSize)
+
+    privacy.Prv.AddCidInfo(db.FullPath(), node.Cid().String(), int64(len(rawData)))
 
 	return node, dataSize, nil
 }
