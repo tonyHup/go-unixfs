@@ -223,7 +223,7 @@ func (dr *dagReader) saveNodeData(node ipld.Node) error {
 		return err
 	}
 
-    realNodeData, err := privacy.Prv.DecryptWithCid(extractedNodeData, node.Cid().String())
+    realNodeData, err := privacy.Prv.Decrypt(extractedNodeData)
     if err == nil {
         extractedNodeData = realNodeData
     }

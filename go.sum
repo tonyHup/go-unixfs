@@ -831,6 +831,8 @@ github.com/tonyHup/go-ipfs-privacy v0.0.5 h1:TFFNXFGReU/0Axlecp8btHT/xaCjwjxwT5D
 github.com/tonyHup/go-ipfs-privacy v0.0.5/go.mod h1:s7uMY1+R2ixPgI3N8BsMg44taMH+vv8TdPuMq35C9rw=
 github.com/tonyHup/go-ipfs-privacy v0.0.6 h1:Bk3f32zqMlNDt8SoGA1yPjJwqyaWGQMTUME2lxMzBh8=
 github.com/tonyHup/go-ipfs-privacy v0.0.6/go.mod h1:s7uMY1+R2ixPgI3N8BsMg44taMH+vv8TdPuMq35C9rw=
+github.com/tonyHup/go-ipfs-privacy v0.0.7 h1:3tGnblrEdfujE1gB7BWQ5h6yu/Kk2Dgx3nzGuUkb/mg=
+github.com/tonyHup/go-ipfs-privacy v0.0.7/go.mod h1:s7uMY1+R2ixPgI3N8BsMg44taMH+vv8TdPuMq35C9rw=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=
 github.com/urfave/cli v1.22.1/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=
