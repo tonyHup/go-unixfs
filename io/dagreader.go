@@ -136,7 +136,7 @@ type dagReader struct {
 
 // Size returns the total size of the data from the DAG structured file.
 func (dr *dagReader) Size() uint64 {
-    if size, err := privacy.Prv.GetRealSize(dr.rootNode.String()); err == nil {
+    if size, err := privacy.Prv.GetRealSize(dr.rootNode.Cid().String()); err == nil {
         return uint64(size)
     }
 	return dr.size

@@ -171,7 +171,7 @@ func Layout(db *h.DagBuilderHelper) (ipld.Node, error) {
 		}
 	}
 
-    privacy.Prv.SetFileInfo(db.FullPath(), root.String())
+    privacy.Prv.SetFileInfo(db.FullPath(), root.Cid().String())
 
 	return root, db.Add(root)
 }
